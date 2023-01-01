@@ -1,5 +1,5 @@
 
-module risc_v (clk);//NOTED
+module control (clk);//NOTED
   input clk; 
  
   reg [31:0] PC, IF_ID_IR , IF_ID_NPC;//Doubt whether NPC is PC+4 or just PC?
