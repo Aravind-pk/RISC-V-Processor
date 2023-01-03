@@ -1,4 +1,4 @@
-module Reg
+module RegisterBank
 
 #(parameter DATA_WIDTH = 32,
     parameter REG_DEPTH = 32,
@@ -34,13 +34,13 @@ module Reg
 
 
 	
-	assign rda = (ra_a == {REG_ADDR_WIDTH{1'b0}}) ? {DATA_WIDTH{1'b0}} : regFile[ra_a];
-	assign rdb = (ra_b == {REG_ADDR_WIDTH{1'b0}}) ? {DATA_WIDTH{1'b0}} : regFile[ra_b];
+  assign rda = (ra_a == {REG_ADDR_WIDTH{1'b0}}) ? {DATA_WIDTH{1'b0}} : Reg[ra_a];
+  assign rdb = (ra_b == {REG_ADDR_WIDTH{1'b0}}) ? {DATA_WIDTH{1'b0}} : Reg[ra_b];
 	
-
+integer j;
 		
-	always @ (posedge clk or negedge rst) begin : 
-		integer j;
+	always @ (posedge clk or negedge rst) begin 
+		
 		// Async Reset
 		if ( !rst ) begin
 			for (j=0; j < REG_DEPTH; j=j+1) begin
@@ -49,14 +49,9 @@ module Reg
 		end 
 		// Write 
 		else if ( we ) begin
-			regFile[wa] <= wd;
+			Reg[wa] <= wd;
 		end
 
 	end
 	
 endmodule
-
-	
-	
-	
-
